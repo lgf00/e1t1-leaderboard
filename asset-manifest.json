@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/E1T1Leaderboard/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/E1T1Leaderboard/static/js/main.bf03f503.chunk.js",
+    "main.js.map": "/E1T1Leaderboard/static/js/main.bf03f503.chunk.js.map",
+    "runtime-main.js": "/E1T1Leaderboard/static/js/runtime-main.cb2a81f6.js",
+    "runtime-main.js.map": "/E1T1Leaderboard/static/js/runtime-main.cb2a81f6.js.map",
+    "static/js/2.f2af6b62.chunk.js": "/E1T1Leaderboard/static/js/2.f2af6b62.chunk.js",
+    "static/js/2.f2af6b62.chunk.js.map": "/E1T1Leaderboard/static/js/2.f2af6b62.chunk.js.map",
+    "index.html": "/E1T1Leaderboard/index.html",
+    "precache-manifest.4d2426a2dbe6a13c8579ca37443758d1.js": "/E1T1Leaderboard/precache-manifest.4d2426a2dbe6a13c8579ca37443758d1.js",
+    "service-worker.js": "/E1T1Leaderboard/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/E1T1Leaderboard/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.f2af6b62.chunk.js.LICENSE.txt": "/E1T1Leaderboard/static/js/2.f2af6b62.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cb2a81f6.js",
+    "static/js/2.f2af6b62.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.bf03f503.chunk.js"
+  ]
+}
