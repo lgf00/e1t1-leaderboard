@@ -1,6 +1,6 @@
 # E1T1Leaderboard
 
-## `cd .\e1t1leaderboard\`
+### `cd .\e1t1leaderboard\`
 
 to enter project folder
 
