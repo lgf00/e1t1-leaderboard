@@ -4,6 +4,8 @@
 
 to enter project folder
 
+### `yarn install`
+
 ### `yarn start`
 
 Runs the app in the development mode.<br />
