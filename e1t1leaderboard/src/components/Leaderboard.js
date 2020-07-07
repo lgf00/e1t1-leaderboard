@@ -63,13 +63,13 @@ function CreateLeaderboard(props) {
   const classes = useStyles();
   let data = props.data;
   let color = classes.barPaperTL;
+  data.sort(compareSecondColumn);
 
   if (props.page === "interns") {
     data = props.data.slice(0, 3)
     color = classes.barPaperIntern;
   }
 
-  data.sort(compareSecondColumn);
   maxPoints = data[0][1];
   return data.map((key, index) => {
     return (
