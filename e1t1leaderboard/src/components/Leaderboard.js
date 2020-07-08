@@ -1,90 +1,148 @@
-import React from 'react';
-import { Paper, Container, makeStyles, Typography, Box } from '@material-ui/core';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import load from './helpers/load'
+import config from '../resources/config';
+import { withStyles } from '@material-ui/styles';
+import { Paper, Container, Typography, Box, LinearProgress, Fade } from '@material-ui/core';
 
-const testData = [["Name One", 91], ["Name Two", 9], ["Name Three", 97], ["Name Four", 19], ["Name Five", 18], ["Name Six", 40], ["Name Seven", 65], ["Name Eight", 84], ["Name Nine", 36], ["Name Ten", 33]];
-let maxPoints = 0;
+const useStyles = theme => ({
+    paper: {
+      padding: theme.spacing(2),
+    },
+    barPaperIntern: {
+      padding: theme.spacing(2),
+      margin: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'row',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      color: 'white',
+      background: theme.palette.primary.dark,
+    },
+    barPaperTL: {
+      padding: theme.spacing(2),
+      margin: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'row',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      color: 'white',
+      background: theme.palette.secondary.dark,
+    },
+    name: {
+      flexGrow: 1,
+    },
+    loading: {
+        margin: theme.spacing(2),
+    },
+    notLoading: {
+        padding: 0,
+    }
+});
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(2),
-  },
-  barPaperIntern: {
-    padding: theme.spacing(2),
-    margin: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'row',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    color: 'white',
-    background: theme.palette.primary.dark,
-  },
-  barPaperTL: {
-    padding: theme.spacing(2),
-    margin: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'row',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    color: 'white',
-    background: theme.palette.secondary.dark,
-  },
-  name: {
-    flexGrow: 1,
-  },
-  points: {
-    textAlign: 'right',
-  }
-}));
+class Leaderboard extends Component {
+    
+    state = {
+        interns: [],
+        error: null,
+        loading: true,
+    }
 
-function Bar(props) {
-  const classes = useStyles();
-  const { name, points, color } = props;
-  const width = points / maxPoints;
-  return(
-    <Box width={width}>
-      <Paper elevation={3} className={color}>
-          <Typography className={classes.name}> {name} </Typography>
-          <Typography> {points} </Typography>
-      </Paper>
-    </Box>
-  );
+    componentDidMount() {
+        window.gapi.load("client", this.initClient);
+    }
+
+    onLoad = (data, error) => {
+        if (data) {
+            const interns = data.interns;
+            this.setState({ interns });
+            this.setState({loading: false});
+        } else {
+            this.setState({ error });
+        }
+    };
+
+    initClient = () => {
+        window.gapi.client.init({
+            apiKey: config.apiKey,
+            discoveryDocs: config.discoveryDocs,
+        }).then(() => {
+            load(this.onLoad);
+        });
+    };
+
+    Bar(props) {
+        const { name, points, color, classes, maxPoints } = props;
+        const width = points / maxPoints;
+        return(
+            <Box width={width}>
+                <Paper elevation={3} className={color}>
+                    <Typography className={classes.name}> {name} </Typography>
+                    <Typography> {points} </Typography>
+                </Paper>
+            </Box>
+        );
+    }
+
+    comparePoints(a, b) {
+        if (parseInt(a.points) === parseInt(b.points)) {
+          return 0;
+        }
+        else {
+          return (parseInt(a.points) > parseInt(b.points)) ? -1 : 1;
+        }
+    }
+
+    render() {
+        const { interns, error, loading } = this.state;
+        const { classes } = this.props;
+        let maxPoints = 0;
+        let color = classes.barPaperTL;
+        let loadColor = "secondary";
+
+        if (error) {
+            return <div>{this.state.error}</div>
+        }
+        
+        let data = interns.sort(this.comparePoints);
+
+        if (interns[0]) {
+            maxPoints = interns[0].points;
+        }
+
+        if (window.location.pathname === "/interns") {
+            color = classes.barPaperIntern;
+            data = interns.slice(0, 3);
+            loadColor = "primary"
+        }
+
+        let loadingStyle = classes.loading;
+        if(!loading) {
+            loadingStyle = classes.notLoading;
+        }
+
+        return (
+            <Container maxWidth="lg">
+                <Paper elevation={2} className={classes.paper} width={1}>
+                    <Fade in={loading} timeout={30}>
+                        <LinearProgress color={loadColor} className={loadingStyle}/>
+                    </Fade>
+                    <Fade in={!loading} timeout={1000}>
+                        <div>
+                            {data.map((intern, key) => (
+                                <this.Bar key={key} name={intern.name} points={intern.points} color={color} classes={classes} maxPoints={maxPoints}/>
+                            ))}
+                        </div>
+                    </Fade>
+                </Paper>
+          </Container>
+        );
+    }
 }
 
-function compareSecondColumn(a, b) {
-  if (a[1] === b[1]) {
-    return 0;
-  }
-  else {
-    return (a[1] > b[1]) ? -1 : 1;
-  }
+Leaderboard.propTypes = {
+    classes: PropTypes.object.isRequired,
 }
 
-function CreateLeaderboard(props) {
-  const classes = useStyles();
-  let data = props.data;
-  let color = classes.barPaperTL;
-  data.sort(compareSecondColumn);
 
-  if (props.page === "interns") {
-    data = props.data.slice(0, 3)
-    color = classes.barPaperIntern;
-  }
-
-  maxPoints = data[0][1];
-  return data.map((key, index) => {
-    return (
-      <Bar name={key[0]} points={key[1]} color={color}/>
-    );
-  });
-}
-
-export default function Leaderboard(props) {
-  const classes = useStyles();
-  return(
-    <Container maxWidth="lg">
-      <Paper elevation={2} className={classes.paper}>
-          <CreateLeaderboard data={testData} page={props.page} />
-      </Paper>
-    </Container>
-  );
-}
+export default withStyles(useStyles)(Leaderboard);
