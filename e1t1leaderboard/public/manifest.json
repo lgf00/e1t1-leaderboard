@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "E1T1 Leaderboard 2020",
+  "name": "A leaderboard for the E1T1 2020 Summer program that allows interns to track their points and see who is at the top!",
   "icons": [
   ],
   "start_url": ".",
