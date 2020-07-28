@@ -109,8 +109,8 @@ class Leaderboard extends Component {
         if (interns[0]) {
             maxPoints = interns[0].points;
         }
-
-        if (window.location.pathname === "/interns") {
+        console.log(window.location.pathname);
+        if (window.location.pathname === "/e1t1-leaderboard/interns") {
             color = classes.barPaperIntern;
             data = interns.slice(0, 3);
             loadColor = "primary"
