@@ -15,7 +15,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <Router basename="/E1T1Leaderboard">
+      <Router basename={window.location.pathname || ''}>
           <Switch>
             <Route exact path="/"> <Home/> </Route>
             <Route exact path="/teamleaders"> <TeamLeaders/> </Route>

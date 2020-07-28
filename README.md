@@ -1,4 +1,4 @@
-# E1T1Leaderboard
+# E1T1 Leaderboard
 
 ### `cd .\e1t1leaderboard\`
 
