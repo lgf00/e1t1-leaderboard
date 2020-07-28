@@ -15,14 +15,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
-  "homepage": "http://lgf00.github.io/",
+  "homepage": "http://lgf00.github.io/E1T1Leaderboard",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -b gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
