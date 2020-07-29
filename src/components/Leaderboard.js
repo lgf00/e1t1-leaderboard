@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import load from './helpers/load'
+import loadNames from './helpers/loadNames';
+import loadPoints from './helpers/loadPoints';
 import config from '../resources/config';
 import { withStyles } from '@material-ui/styles';
 import { Paper, Container, Typography, Box, LinearProgress, Fade } from '@material-ui/core';
@@ -33,20 +34,32 @@ const useStyles = theme => ({
 class Leaderboard extends Component {
     
     state = {
-        interns: [],
+        names: [],
+        points: [],
         error: null,
-        loading: true,
+        namesLoading: true,
+        pointsLoading: true,
     }
 
     componentDidMount() {
         window.gapi.load("client", this.initClient);
     }
 
-    onLoad = (data, error) => {
+    onLoadNames = (data, error) => {
         if (data) {
-            const interns = data.interns;
-            this.setState({ interns });
-            this.setState({loading: false});
+            const names = data.names;
+            this.setState({ names });
+            this.setState({ namesLoading: false});
+        } else {
+            this.setState({ error });
+        }
+    };
+
+    onLoadPoints = (data, error) => {
+        if (data) {
+            const points = data.points;
+            this.setState({ points });
+            this.setState({ pointsLoading: false});
         } else {
             this.setState({ error });
         }
@@ -57,7 +70,8 @@ class Leaderboard extends Component {
             apiKey: config.apiKey,
             discoveryDocs: config.discoveryDocs,
         }).then(() => {
-            load(this.onLoad);
+            loadNames(this.onLoadNames);
+            loadPoints(this.onLoadPoints)
         });
     };
 
@@ -83,8 +97,17 @@ class Leaderboard extends Component {
         }
     }
 
+    createInterns(namesArr, pointsArr) {
+        let interns = [];
+        for (let i = 0; i < namesArr.length; i++) {
+             let intern = {name: namesArr[i][0], points: pointsArr[i][0]};
+             interns.push(intern);
+        }
+        return interns;
+    }
+
     render() {
-        const { interns, error, loading } = this.state;
+        const { names, points, error, namesLoading, pointsLoading } = this.state;
         const { classes } = this.props;
         let maxPoints = 0;
 
@@ -93,24 +116,21 @@ class Leaderboard extends Component {
             return <div> error occured fetching data </div>
         }
         
-        let data = interns.sort(this.comparePoints);
-
-        if (interns[0]) {
-            maxPoints = interns[0].points;
-        }
-
+        let data = this.createInterns(names, points);
+        data.sort(this.comparePoints);
+        
         let loadingStyle = classes.loading;
-        if(!loading) {
+        if(!(namesLoading && pointsLoading)) {
             loadingStyle = classes.notLoading;
         }
 
         return (
             <Container maxWidth="lg">
                 <Paper elevation={2} className={classes.paper} width={1}>
-                    <Fade in={loading} timeout={30}>
+                    <Fade in={(namesLoading && pointsLoading)} timeout={30}>
                         <LinearProgress color="primary" className={loadingStyle}/>
                     </Fade>
-                    <Fade in={!loading} timeout={1000}>
+                    <Fade in={!(namesLoading && pointsLoading)} timeout={1000}>
                         <div>
                             {data.map((intern, key) => (
                                 <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} maxPoints={maxPoints}/>
