@@ -36,7 +36,8 @@ const useStyles = theme => ({
         margin: theme.spacing(2),
     },
     notLoading: {
-        padding: 0.0,
+        padding: 0,
+        margin: 0,
     }
 });
 
@@ -108,11 +109,11 @@ class Leaderboard extends Component {
             return <div> error occured fetching data </div>
         }
 
-        let data = [{name: "ERROR", points: 404}];
-        // let team1 = [{name: "ERROR", points: 404}];
-        // let team2 = [{name: "ERROR", points: 404}];
-        // let team3 = [{name: "ERROR", points: 404}];
-        // let team4 = [{name: "ERROR", points: 404}];
+        let data = [];
+        // let team1 = [];
+        // let team2 = [];
+        // let team3 = [];
+        // let team4 = [];
 
         let loadingStyle = classes.loading;
         if(!loading) {
@@ -128,8 +129,8 @@ class Leaderboard extends Component {
         return (
             <Container maxWidth="lg">
                 <Paper elevation={2} className={classes.paper} width={1}>
-                    <Fade in={loading} timeout={30}>
-                        <LinearProgress color="primary" className={loadingStyle}/>
+                    <Fade in={loading} timeout={30} className={loadingStyle}>
+                        <LinearProgress color="primary"/>
                     </Fade>
                     <Fade in={!loading} timeout={1000}>
                         <div>
