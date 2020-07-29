@@ -6,7 +6,7 @@ import Interns from './pages/Interns';
 
 const theme = createMuiTheme({
   palette: {
-    type: 'light',
+    type: 'dark',
   },
 });
 
