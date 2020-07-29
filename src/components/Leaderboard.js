@@ -99,6 +99,9 @@ class Leaderboard extends Component {
 
     createInterns(namesArr, pointsArr) {
         let interns = [];
+        console.log("Inside createInterns");
+        console.log(namesArr);
+        console.log(pointsArr);
         for (let i = 0; i < namesArr.length; i++) {
              let intern = {name: namesArr[i][0], points: pointsArr[i][0]};
              interns.push(intern);
@@ -115,13 +118,24 @@ class Leaderboard extends Component {
             console.log(error);
             return <div> error occured fetching data </div>
         }
-        
-        let data = this.createInterns(names, points);
-        data.sort(this.comparePoints);
-        
+        console.log(error);
+
+        // let data = this.createInterns(names, points);
+        // let team1 = data.slice(0, 10).sort(this.comparePoints);
+        // let team2 = data.slice(10, 21).sort(this.comparePoints);
+        // let team3 = data.slice(21, 32).sort(this.comparePoints);
+        // let team4 = data.slice(32, 41).sort(this.comparePoints);
+
+        console.log("Names " + names);
+        console.log("Points " + points);
+
+        let data = [];
+
         let loadingStyle = classes.loading;
         if(!(namesLoading && pointsLoading)) {
             loadingStyle = classes.notLoading;
+            data = this.createInterns(names, points);
+            console.log(data);
         }
 
         return (
@@ -130,13 +144,13 @@ class Leaderboard extends Component {
                     <Fade in={(namesLoading && pointsLoading)} timeout={30}>
                         <LinearProgress color="primary" className={loadingStyle}/>
                     </Fade>
-                    <Fade in={!(namesLoading && pointsLoading)} timeout={1000}>
+                    {/* <Fade in={!(namesLoading && pointsLoading)} timeout={1000}>
                         <div>
                             {data.map((intern, key) => (
                                 <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} maxPoints={maxPoints}/>
                             ))}
                         </div>
-                    </Fade>
+                    </Fade> */}
                 </Paper>
           </Container>
         );
