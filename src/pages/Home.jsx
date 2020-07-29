@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
-import ButtonPassword from '../components/ButtonPassword';
+import ButtonLink from '../components/ButtonLink';
 
 export default function Home(){
     return (
@@ -8,11 +8,9 @@ export default function Home(){
         <Grid item xs={12}>
           <Typography variant="h1"> E1T1 Leaderboard</Typography>
         </Grid>
-        <ButtonPassword/>
-        {/* <Grid item xs={12}>
-            <ButtonLink primary="Team Leaders" to="/teamleaders" color="secondary" variant="outlined"/>
+        <Grid item xs={12}>
             <ButtonLink primary="Interns" to="/interns" color="primary" variant="contained"/>
-        </Grid> */}
+        </Grid>
       </Grid>
     );
 }

@@ -5,13 +5,15 @@ export default function load(callback) {
     window.gapi.client.sheets.spreadsheets.values
       .get({
         spreadsheetId: config.spreadsheetId,
-        range: "Points 8/2!I11:R70"
+        range: "apitesting!A2:B22"
       })
       .then(
         response => {
           const data = response.result.values;
-          console.log(data);
-          const interns = data || [];
+          const interns = data.map(intern => ({
+            name: intern[0],
+            points: intern[1],
+          })) || [];
           callback({
             interns
           });

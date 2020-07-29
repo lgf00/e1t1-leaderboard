@@ -9,7 +9,7 @@ const useStyles = theme => ({
     paper: {
       padding: theme.spacing(2),
     },
-    barPaper: {
+    barPaperIntern: {
       padding: theme.spacing(2),
       margin: theme.spacing(2),
       display: 'flex',
@@ -18,6 +18,16 @@ const useStyles = theme => ({
       whiteSpace: 'nowrap',
       color: 'white',
       background: theme.palette.primary.dark,
+    },
+    barPaperTL: {
+      padding: theme.spacing(2),
+      margin: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'row',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      color: 'white',
+      background: theme.palette.secondary.dark,
     },
     name: {
       flexGrow: 1,
@@ -62,11 +72,11 @@ class Leaderboard extends Component {
     };
 
     Bar(props) {
-        const { name, points, classes, maxPoints } = props;
+        const { name, points, color, classes, maxPoints } = props;
         const width = points / maxPoints;
         return(
             <Box width={width}>
-                <Paper elevation={3} className={classes.barPaper}>
+                <Paper elevation={3} className={color}>
                     <Typography className={classes.name}> {name} </Typography>
                     <Typography> {points} </Typography>
                 </Paper>
@@ -87,16 +97,23 @@ class Leaderboard extends Component {
         const { interns, error, loading } = this.state;
         const { classes } = this.props;
         let maxPoints = 0;
+        let color = classes.barPaperTL;
+        let loadColor = "secondary";
 
         if (error) {
-            console.log(error);
-            return <div> error occured fetching data </div>
+            return <div>{this.state.error}</div>
         }
         
         let data = interns.sort(this.comparePoints);
 
         if (interns[0]) {
             maxPoints = interns[0].points;
+        }
+        console.log(window.location.pathname);
+        if (window.location.pathname === "/e1t1-leaderboard/interns") {
+            color = classes.barPaperIntern;
+            data = interns.slice(0, 3);
+            loadColor = "primary"
         }
 
         let loadingStyle = classes.loading;
@@ -108,12 +125,12 @@ class Leaderboard extends Component {
             <Container maxWidth="lg">
                 <Paper elevation={2} className={classes.paper} width={1}>
                     <Fade in={loading} timeout={30}>
-                        <LinearProgress color="primary" className={loadingStyle}/>
+                        <LinearProgress color={loadColor} className={loadingStyle}/>
                     </Fade>
                     <Fade in={!loading} timeout={1000}>
                         <div>
                             {data.map((intern, key) => (
-                                <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} maxPoints={maxPoints}/>
+                                <this.Bar key={key} name={intern.name} points={intern.points} color={color} classes={classes} maxPoints={maxPoints}/>
                             ))}
                         </div>
                     </Fade>
