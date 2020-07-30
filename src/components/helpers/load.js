@@ -11,7 +11,7 @@ export default function load(callback) {
       .batchGet({
         spreadsheetId: config.spreadsheetId,
         majorDimension: "COLUMNS",
-        ranges: [sheetName + "!C11:C67", sheetName + "!BC11:BC67"]
+        ranges: [sheetName + "!C11:C67", sheetName + "!BD11:BD67"]
       })
       .then(
         response => {
