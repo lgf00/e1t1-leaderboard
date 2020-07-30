@@ -74,7 +74,7 @@ class Leaderboard extends Component {
 
     Bar(props) {
         const { name, points, classes } = props;
-        const width = (points > 1000) ? 1 : (points < 100) ? 0.1 : points / 1000;
+        const width = (points > 1000) ? 1 : (points < 100) ? 0.09 : points / 1000;
         
         let style = classes.barPaper;
         if (points >= 1000) {

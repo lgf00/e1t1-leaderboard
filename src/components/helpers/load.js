@@ -6,7 +6,7 @@ export default function load(callback) {
       .batchGet({
         spreadsheetId: config.spreadsheetId,
         majorDimension: "COLUMNS",
-        ranges: ["Points Week 8/2!C17:C73", "Points Week 8/2!AT17:AT73"]
+        ranges: ["Points Week 8/2!C17:C73", "Points Week 8/2!AX17:AX73"]
       })
       .then(
         response => {
