@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core';
 import Home from './pages/Home';
-import Interns from './pages/Interns';
+import CurrentWeek from './pages/CurrentWeek';
+import Cumalative from './pages/Cumalative';
 
 const theme = createMuiTheme({
   palette: {
@@ -17,7 +18,8 @@ function App() {
       <Router basename={"/e1t1-leaderboard" || ''}>
           <Switch>
             <Route exact path="/"> <Home/> </Route>
-            <Route exact path="/interns"> <Interns/> </Route>
+            <Route exact path="/current-week"> <CurrentWeek/> </Route>
+            <Route exact path="/cumalative"> <Cumalative/> </Route>
           </Switch>
       </Router>
     </ThemeProvider>

@@ -2,10 +2,10 @@ import React from 'react';
 import Header from '../components/Header';
 import Leaderboard from '../components/Leaderboard'
 
-export default function Home(){
+export default function CurrentWeek(){
     return (
         <div>
-          <Header name="Interns"/>
+          <Header name="Week 8/2"/>
           <Leaderboard/>
         </div>
     );

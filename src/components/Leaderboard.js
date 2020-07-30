@@ -73,11 +73,17 @@ class Leaderboard extends Component {
     };
 
     Bar(props) {
-        const { name, points, classes } = props;
-        const width = (points > 1000) ? 1 : (points < 100) ? 0.09 : points / 1000;
+        const { name, points, classes, max } = props;
+        
+        let width = points / max;
+        
+        if (window.location.pathname === "/e1t1-leaderboard/current-week") {
+            width = (points > 1000) ? 1 : (points < 100) ? 0.09 : points / 1000;
+        }
+        
         
         let style = classes.barPaper;
-        if (points >= 1000) {
+        if (points >= 1000 && window.location.pathname === "/e1t1-leaderboard/current-week") {
             style = classes.barPaperComplete;
         }
 
@@ -104,12 +110,8 @@ class Leaderboard extends Component {
         const { interns, error, loading } = this.state;
         const { classes } = this.props;
 
-        if (error) {
-            console.log(error);
-            return <div> error occured fetching data </div>
-        }
-
         let data = [];
+        let maxPoints = 1;
         // let team1 = [];
         // let team2 = [];
         // let team3 = [];
@@ -118,8 +120,19 @@ class Leaderboard extends Component {
         let loadingStyle = classes.loading;
         if(!loading) {
             loadingStyle = classes.notLoading;
+
+            if (error) {
+                console.log(error);
+                return <div> error occured fetching data, contact Lucas Guzman-Finn </div>
+            }
+
             data = interns;
             data.sort(this.comparePoints);
+            if (window.location.pathname === "/e1t1-leaderboard/cumalative") {
+                maxPoints = data[0].points;
+            }
+
+
             // team1 = data.slice(0, 10).sort(this.comparePoints);
             // team2 = data.slice(10, 21).sort(this.comparePoints);
             // team3 = data.slice(21, 32).sort(this.comparePoints);
@@ -135,7 +148,7 @@ class Leaderboard extends Component {
                     <Fade in={!loading} timeout={1000}>
                         <div>
                             {data.map((intern, key) => (
-                                <this.Bar key={key} name={intern.name} points={intern.points} classes={classes}/>
+                                <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints}/>
                             ))}
                         </div>
                     </Fade>

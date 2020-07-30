@@ -1,12 +1,17 @@
 import config from "../../resources/config";
 
 export default function load(callback) {
+  console.log(window.location.pathname);
+  let sheetName = "Points Cumulative";
+  if (window.location.pathname === "/e1t1-leaderboard/current-week") {
+    sheetName = "Points Week 8/2";
+  }
   window.gapi.client.load("sheets", "v4", () => {
     window.gapi.client.sheets.spreadsheets.values
       .batchGet({
         spreadsheetId: config.spreadsheetId,
         majorDimension: "COLUMNS",
-        ranges: ["Points Week 8/2!C17:C73", "Points Week 8/2!AX17:AX73"]
+        ranges: [sheetName + "!C11:C67", sheetName + "!AX11:AX67"]
       })
       .then(
         response => {
@@ -22,6 +27,7 @@ export default function load(callback) {
           });
         },
         response => {
+          console.log(response.result.error);
           callback(false, response.result.error);
         }
       );

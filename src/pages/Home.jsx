@@ -9,7 +9,8 @@ export default function Home(){
           <Typography variant="h1"> E1T1 Leaderboard</Typography>
         </Grid>
         <Grid item xs={12}>
-            <ButtonLink primary="Interns" to="/interns" color="primary" variant="contained"/>
+            <ButtonLink primary="Cumalative" to="/cumalative" color="primary" variant="contained"/>
+            <ButtonLink primary="Week 8/2" to="/current-week" color="primary" variant="contained"/>
         </Grid>
       </Grid>
     );
