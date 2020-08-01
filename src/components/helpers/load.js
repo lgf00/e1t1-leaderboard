@@ -2,16 +2,16 @@ import config from "../../resources/config";
 
 export default function load(callback) {
   console.log(window.location.pathname);
-  let sheetName = "Points Cumulative";
+  let sheetName = "CumPoints 7/30";
   if (window.location.pathname === "/e1t1-leaderboard/current-week") {
-    sheetName = "Points Week 8/2";
+    sheetName = "CumPoints 8/2";
   }
   window.gapi.client.load("sheets", "v4", () => {
     window.gapi.client.sheets.spreadsheets.values
       .batchGet({
         spreadsheetId: config.spreadsheetId,
         majorDimension: "COLUMNS",
-        ranges: [sheetName + "!C11:C68", sheetName + "!BE11:BE52"]
+        ranges: [sheetName + "!C11:C68", sheetName + "!BF11:BF52"]
       })
       .then(
         response => {
