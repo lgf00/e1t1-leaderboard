@@ -98,11 +98,11 @@ class Leaderboard extends Component {
     }
 
     comparePoints(a, b) {
-        if (parseInt(a.points) === parseInt(b.points)) {
+        if (a.points === b.points) {
           return 0;
         }
         else {
-          return (parseInt(a.points) > parseInt(b.points)) ? -1 : 1;
+          return (a.points > b.points) ? -1 : 1;
         }
     }
 
@@ -112,6 +112,7 @@ class Leaderboard extends Component {
 
         let data = [];
         let maxPoints = 1;
+
         // let team1 = [];
         // let team2 = [];
         // let team3 = [];
@@ -131,7 +132,6 @@ class Leaderboard extends Component {
             if (window.location.pathname === "/e1t1-leaderboard/cumalative") {
                 maxPoints = data[0].points;
             }
-
 
             // team1 = data.slice(0, 10).sort(this.comparePoints);
             // team2 = data.slice(10, 21).sort(this.comparePoints);
