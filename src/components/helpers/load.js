@@ -4,14 +4,14 @@ export default function load(callback) {
   console.log(window.location.pathname);
   let sheetName = "CumPoints 7/30";
   if (window.location.pathname === "/e1t1-leaderboard/current-week") {
-    sheetName = "CumPoints 8/2";
+    sheetName = "Points 8/9";
   }
   window.gapi.client.load("sheets", "v4", () => {
     window.gapi.client.sheets.spreadsheets.values
       .batchGet({
         spreadsheetId: config.spreadsheetId,
         majorDimension: "COLUMNS",
-        ranges: [sheetName + "!C11:C68", sheetName + "!BH11:BH52"]
+        ranges: [sheetName + "!C11:C52", sheetName + "!BH11:BH52"]
       })
       .then(
         response => {
