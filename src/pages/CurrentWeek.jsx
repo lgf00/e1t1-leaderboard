@@ -5,7 +5,7 @@ import Leaderboard from '../components/Leaderboard'
 export default function CurrentWeek(){
     return (
         <div>
-          <Header name="Week 8/2"/>
+          <Header name="Week 8/9"/>
           <Leaderboard/>
         </div>
     );
