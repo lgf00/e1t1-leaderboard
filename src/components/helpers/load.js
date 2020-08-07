@@ -2,7 +2,7 @@ import config from "../../resources/config";
 
 export default function load(callback) {
   console.log(window.location.pathname);
-  let sheetName = "CumPoints 7/30";
+  let sheetName = "CumPoints 8/9";
   if (window.location.pathname === "/e1t1-leaderboard/current-week") {
     sheetName = "Points 8/9";
   }
@@ -11,7 +11,7 @@ export default function load(callback) {
       .batchGet({
         spreadsheetId: config.spreadsheetId,
         majorDimension: "COLUMNS",
-        ranges: [sheetName + "!C11:C52", sheetName + "!BI11:BI52"]
+        ranges: [sheetName + "!C11:C52", sheetName + "!BN11:BN52"]
       })
       .then(
         response => {
