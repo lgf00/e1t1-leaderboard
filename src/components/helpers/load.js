@@ -1,7 +1,6 @@
 import config from "../../resources/config";
 
 export default function load(callback) {
-  console.log(window.location.pathname);
   let sheetName = "CumPoints 8/9";
   if (window.location.pathname === "/e1t1-leaderboard/current-week") {
     sheetName = "Points 8/9";
