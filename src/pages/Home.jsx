@@ -10,7 +10,7 @@ export default function Home(){
         </Grid>
         <Grid item xs={12}>
             <ButtonLink primary="Cumalative" to="/cumalative" color="primary" variant="contained"/>
-            <ButtonLink primary="Week 8/9" to="/current-week" color="primary" variant="contained"/>
+            <ButtonLink primary="Week 8/14" to="/current-week" color="primary" variant="contained"/>
         </Grid>
       </Grid>
     );
