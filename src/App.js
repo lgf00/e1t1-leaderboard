@@ -4,6 +4,7 @@ import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core';
 import Home from './pages/Home';
 import CurrentWeek from './pages/CurrentWeek';
 import Cumalative from './pages/Cumalative';
+import TeamLeaders from './pages/TeamLeaders';
 
 const theme = createMuiTheme({
   palette: {
@@ -20,6 +21,7 @@ function App() {
             <Route exact path="/"> <Home/> </Route>
             <Route exact path="/current-week"> <CurrentWeek/> </Route>
             <Route exact path="/cumalative"> <Cumalative/> </Route>
+            <Route exact path="/team-leaders"> <TeamLeaders/> </Route>
           </Switch>
       </Router>
     </ThemeProvider>
