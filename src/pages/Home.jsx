@@ -16,7 +16,7 @@ export default function Home(){
             <ButtonLink primary="Current Week" to="/current-week" color="primary" variant="contained"/>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h4" style={{ fontSize: 'min(6vw, 40px)' }}> Team Leaders </Typography>
+          <Typography variant="h4" style={{ fontSize: 'min(6vw, 40px)' }}> Team Leaders (WIP) </Typography>
         </Grid>
         <Grid item xs={12} container alignItems="center" justify="center">
           <ButtonLink primary="Cumalative" to="/tl-cumalative" color="primary" variant="contained"/>
