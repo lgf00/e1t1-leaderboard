@@ -31,6 +31,17 @@ const useStyles = theme => ({
         color: 'white',
         background: 'green',
     },
+    barPaperGold: {
+        padding: theme.spacing(2),
+        margin: '20px 0px 20px 0px',
+        display: 'flex',
+        flexDirection: 'row',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        color: 'white',
+        background: '#ffc107',
+        boxShadow: '0 0 10px 5px #fff',
+    },
     name: {
       flexGrow: 1,
     },
@@ -48,6 +59,9 @@ class TotalView extends Component {
         }
         
         let style = classes.barPaper;
+        if (points === max && window.location.pathname !== "/e1t1-leaderboard/team-leaders") {
+            style = classes.barPaperGold;
+        }
         if (points >= 1000 && window.location.pathname === "/e1t1-leaderboard/current-week") {
             style = classes.barPaperComplete;
         }

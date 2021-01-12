@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import load from './helpers/load';
+import loadRange from './helpers/loadRange';
 import config from '../resources/config';
 import { withStyles } from '@material-ui/styles';
 import { Paper, Container, LinearProgress, Fade, Tab, Tabs } from '@material-ui/core';
-import TeamView from './TeamView';
 import TotalView from './TotalView';
 import TabPanel from './TabPanel';
 
@@ -35,20 +35,45 @@ const useStyles = theme => ({
 class Leaderboard extends Component {
     
     state = {
-        interns: [],
+        tls: [],
         error: null,
         loading: true,
         value: 0,
+        weekSheetName: '',
+        cumSheetName: '',
+        TLNameRange: '',
+        TLPointRange: '',
     }
 
     componentDidMount() {
         window.gapi.load("client", this.initClient);
     }
 
+    onLoadSetRange = (data, error) => {
+        if (data) {
+            this.setState({ weekSheetName: data.fullSend[0] });
+            this.setState({ cumSheetName: data.fullSend[1] });
+            this.setState({ TLNameRange: data.fullSend[4] });
+            this.setState({ TLPointRange: data.fullSend[5] });
+            window.gapi.client.init({
+                apiKey: config.apiKey,
+                discoveryDocs: config.discoveryDocs,
+            }).then(() => {
+                let sheetName = this.state.cumSheetName;
+                if (window.location.pathname === "/e1t1-leaderboard/tl-current-week") {
+                    sheetName = this.state.weekSheetName;
+                }
+                load(sheetName, this.state.TLNameRange, this.state.TLPointRange, this.onLoad);
+            })
+        } else {
+            this.setState({error});
+        }
+    }
+
     onLoad = (data, error) => {
         if (data) {
-            const interns = data.fullSend;
-            this.setState({ interns });
+            const tls = data.fullSend;
+            this.setState({ tls });
             this.setState({ loading: false});
         } else {
             this.setState({ error });
@@ -60,7 +85,7 @@ class Leaderboard extends Component {
             apiKey: config.apiKey,
             discoveryDocs: config.discoveryDocs,
         }).then(() => {
-            load(this.onLoad);
+            loadRange(this.onLoadSetRange);
         });
     };
 
@@ -76,7 +101,7 @@ class Leaderboard extends Component {
     }
 
     render() {
-        const { interns, error, loading, value } = this.state;
+        const { tls, error, loading, value } = this.state;
         const { classes } = this.props;
 
         let loadingStyle = classes.loading;
@@ -93,7 +118,7 @@ class Leaderboard extends Component {
             <Container maxWidth="lg">
                 <Paper elevation={2} className={classes.paper} width={1}>
                     <Tabs value={value} onChange={this.handleChange} aria-label="simple tabs example" indicatorColor="primary" variant="fullWidth">
-                        <Tab label="All View" {...this.a11yProps(0)}/>
+                        <Tab label="All" {...this.a11yProps(0)}/>
                     </Tabs>
                     <Fade in={loading} timeout={30} className={loadingStyle}>
                         <LinearProgress color="secondary"/>
@@ -101,7 +126,7 @@ class Leaderboard extends Component {
                     <Fade in={!loading} timeout={1000}>
                         <div>
                             <TabPanel value={value} index={0} className={classes.allTab}>
-                                <TotalView data={interns} isLoading={loading}/>
+                                <TotalView data={tls} isLoading={loading}/>
                             </TabPanel>
                         </div>
                     </Fade>

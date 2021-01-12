@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import load from './helpers/load';
+import loadRange from './helpers/loadRange';
 import config from '../resources/config';
 import { withStyles } from '@material-ui/styles';
 import { Paper, Container, LinearProgress, Fade, Tab, Tabs } from '@material-ui/core';
@@ -33,16 +34,40 @@ const useStyles = theme => ({
 });
 
 class Leaderboard extends Component {
-    
-    state = {
+   state = {
         interns: [],
         error: null,
         loading: true,
         value: 0,
+        weekSheetName: '',
+        cumSheetName: '',
+        internNameRange: '',
+        internPointRange: '',
     }
 
     componentDidMount() {
         window.gapi.load("client", this.initClient);
+    }
+
+    onLoadSetRange = (data, error) => {
+        if (data) {
+            this.setState({ weekSheetName: data.fullSend[0] });
+            this.setState({ cumSheetName: data.fullSend[1] });
+            this.setState({ internNameRange: data.fullSend[2] });
+            this.setState({ internPointRange: data.fullSend[3] });
+            window.gapi.client.init({
+                apiKey: config.apiKey,
+                discoveryDocs: config.discoveryDocs,
+            }).then(() => {
+                let sheetName = this.state.cumSheetName;
+                if (window.location.pathname === "/e1t1-leaderboard/current-week") {
+                    sheetName = this.state.weekSheetName;
+                }
+                load(sheetName, this.state.internNameRange, this.state.internPointRange, this.onLoad);
+            })
+        } else {
+            this.setState({error});
+        }
     }
 
     onLoad = (data, error) => {
@@ -60,7 +85,7 @@ class Leaderboard extends Component {
             apiKey: config.apiKey,
             discoveryDocs: config.discoveryDocs,
         }).then(() => {
-            load(this.onLoad);
+            loadRange(this.onLoadSetRange);
         });
     };
 
@@ -93,8 +118,8 @@ class Leaderboard extends Component {
             <Container maxWidth="lg">
                 <Paper elevation={2} className={classes.paper} width={1}>
                     <Tabs value={value} onChange={this.handleChange} aria-label="simple tabs example" indicatorColor="primary" variant="fullWidth">
-                        <Tab label="All View" {...this.a11yProps(0)}/>
-                        <Tab label="Team View" {...this.a11yProps(1)}/>
+                        <Tab label="All" {...this.a11yProps(0)}/>
+                        <Tab label="Teams" {...this.a11yProps(1)}/>
                     </Tabs>
                     <Fade in={loading} timeout={30} className={loadingStyle}>
                         <LinearProgress color="secondary"/>

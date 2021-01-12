@@ -31,6 +31,17 @@ const useStyles = theme => ({
         color: 'white',
         background: 'green',
     },
+    barPaperGold: {
+        padding: theme.spacing(2),
+        margin: '20px 0px 20px 0px',
+        display: 'flex',
+        flexDirection: 'row',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        color: 'white',
+        background: '#ffc107',
+        boxShadow: '0 0 10px 5px #ffc107',
+    },
     name: {
       flexGrow: 1,
     },
@@ -59,16 +70,17 @@ class TeamView extends Component {
     }
 
     Bar(props) {
-        const { name, points, classes, max } = props;
+        const { name, points, classes, max, teamMax } = props;
         
         let width = points / max;
         
         if (window.location.pathname === "/e1t1-leaderboard/current-week") {
             width = (points > 1000) ? 1 : (points < 100) ? 0.09 : points / 1000;
         }
-        
-        
         let style = classes.barPaper;
+        if (points === teamMax) {
+            style = classes.barPaperGold;
+        }
         if (points >= 1000 && window.location.pathname === "/e1t1-leaderboard/current-week") {
             style = classes.barPaperComplete;
         }
@@ -87,35 +99,37 @@ class TeamView extends Component {
         const { isLoading, data, classes } = this.props;
 
         let interns = [...data];
-        let maxData = [...data];
         let maxPoints = 1;
-
         let team1 = interns.slice(0, 10).sort(this.comparePoints);
         let team2 = interns.slice(10, 21).sort(this.comparePoints);
         let team3 = interns.slice(21, 32).sort(this.comparePoints);
         let team4 = interns.slice(32, 41).sort(this.comparePoints);
+        let team1Max = team1.sort(this.comparePoints)[0].points;
+        let team2Max = team2.sort(this.comparePoints)[0].points;
+        let team3Max = team3.sort(this.comparePoints)[0].points;
+        let team4Max = team4.sort(this.comparePoints)[0].points;
 
         if (!isLoading) {
-            maxPoints = maxData.sort(this.comparePoints)[0].points;
+            maxPoints = interns.sort(this.comparePoints)[0].points;
         }
 
         return (
             <div>
                 <Typography variant='h6' className={classes.teamNames}> Team 1 </Typography>
                 {team1.map((intern, key) => (
-                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints}/>
+                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team1Max}/>
                 ))}
                 <Typography variant='h6' className={classes.teamNames}> Team 2 </Typography>
                 {team2.map((intern, key) => (
-                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints}/>
+                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team2Max}/>
                 ))}
                 <Typography variant='h6' className={classes.teamNames}> Team 3 </Typography>
                 {team3.map((intern, key) => (
-                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints}/>
+                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team3Max}/>
                 ))}
                 <Typography variant='h6' className={classes.teamNames}> Team 4 </Typography>
                 {team4.map((intern, key) => (
-                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints}/>
+                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team4Max}/>
                 ))}
             </div>
         );
