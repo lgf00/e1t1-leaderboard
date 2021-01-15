@@ -8,7 +8,7 @@ run `yarn install` in your terminal while in the project directory.
 This will download all dependencies that this app uses to run.
 
 ### Step 3: Adding a config.js
-This step is needed to add the funtionalty to read data from a google spreadsheet.
+This step is needed to add the funtionalty to read data from the google spreadsheets.
 create a resources folder under src and then add a new file called `config.js`
 
 then paste this code in
@@ -34,6 +34,11 @@ You will also see any lint errors in the console.
 `yarn deploy`
 
 This will build the react app and then push that build to the gh-pages branch which is what the live site is reading from
+
+## Changes to Columns or Rows in Points and Cum Points sheets
+If a row or column is added, make sure to update the ranges in this sheet
+[database](https://docs.google.com/spreadsheets/d/1SDwXm2k-ti1PwFoD8hAoJxwG5lpdF7Pf53jX__0zUZE/edit?usp=sharing)
+as this is what the leaderboard pulls from to know what sheets and ranges to look at in the Master Spreadsheet.
 
 ### fork and pull request testing from e1t1 2020 interns
 
