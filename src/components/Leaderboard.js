@@ -72,6 +72,7 @@ class Leaderboard extends Component {
 
     onLoad = (data, error) => {
         if (data) {
+            console.log(data);
             const interns = data.fullSend;
             this.setState({ interns });
             this.setState({ loading: false});
@@ -107,11 +108,10 @@ class Leaderboard extends Component {
         let loadingStyle = classes.loading;
         if(!loading) {
             loadingStyle = classes.notLoading;
-
-            if (error) {
-                console.log(error);
-                return <div> error occured fetching data, contact Lucas Guzman-Finn </div>
-            }
+        }
+        if (error) {
+            console.log(error);
+            return <div> error occured fetching data, contact Lucas Guzmán-Finn </div>
         }
 
         return (

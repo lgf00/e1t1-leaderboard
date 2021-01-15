@@ -54,16 +54,16 @@ class TotalView extends Component {
         
         let width = points / max;
         
-        if (window.location.pathname === "/e1t1-leaderboard/current-week") {
+        if (window.location.pathname === "/e1t1-leaderboard/current-week" || window.location.pathname === "/e1t1-leaderboard/tl-current-week") {
             width = (points > 1000) ? 1 : (points < 100) ? 0.09 : points / 1000;
         }
         
         let style = classes.barPaper;
-        if (points === max && window.location.pathname !== "/e1t1-leaderboard/team-leaders") {
-            style = classes.barPaperGold;
-        }
         if (points >= 1000 && window.location.pathname === "/e1t1-leaderboard/current-week") {
             style = classes.barPaperComplete;
+        }
+        if (points === max && max !== 0 && window.location.pathname !== "/e1t1-leaderboard/team-leaders") {
+            style = classes.barPaperGold;
         }
 
         return(

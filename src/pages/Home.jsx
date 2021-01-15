@@ -12,15 +12,15 @@ export default function Home(){
           <Typography variant="h4" style={{ fontSize: 'min(6vw, 40px)' }}> Interns </Typography>
         </Grid>
         <Grid item xs={12} container alignItems="center" justify="center">
-            <ButtonLink primary="Cumalative" to="/cumalative" color="primary" variant="contained"/>
             <ButtonLink primary="Current Week" to="/current-week" color="primary" variant="contained"/>
+            <ButtonLink primary="Cumalative" to="/cumalative" color="primary" variant="contained"/>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h4" style={{ fontSize: 'min(6vw, 40px)' }}> Team Leaders (WIP) </Typography>
+          <Typography variant="h4" style={{ fontSize: 'min(6vw, 40px)' }}> Team Leaders </Typography>
         </Grid>
         <Grid item xs={12} container alignItems="center" justify="center">
-          <ButtonLink primary="Cumalative" to="/tl-cumalative" color="primary" variant="contained"/>
           <ButtonLink primary="Current Week" to="/tl-current-week" color="primary" variant="contained"/>
+          <ButtonLink primary="Cumalative" to="/tl-cumalative" color="primary" variant="contained"/>
         </Grid>
       </Grid>
     );

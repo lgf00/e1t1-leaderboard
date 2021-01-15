@@ -5,7 +5,7 @@ import TLLeaderboard from '../components/TLLeaderboard'
 export default function TLCurrentWeek(){
     return (
         <div>
-          <Header name="Team Leaders Current Week"/>
+          <Header name="Current Week (TLs)"/>
           <TLLeaderboard/>
         </div>
     );

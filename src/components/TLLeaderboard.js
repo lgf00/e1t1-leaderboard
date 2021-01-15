@@ -6,6 +6,7 @@ import config from '../resources/config';
 import { withStyles } from '@material-ui/styles';
 import { Paper, Container, LinearProgress, Fade, Tab, Tabs } from '@material-ui/core';
 import TotalView from './TotalView';
+import TeamView from './TeamView';
 import TabPanel from './TabPanel';
 
 const useStyles = theme => ({
@@ -107,11 +108,10 @@ class Leaderboard extends Component {
         let loadingStyle = classes.loading;
         if(!loading) {
             loadingStyle = classes.notLoading;
-
-            if (error) {
-                console.log(error);
-                return <div> error occured fetching data, contact Lucas Guzman-Finn </div>
-            }
+        }
+        if (error) {
+            console.log(error);
+            return <div> error occured fetching data, contact Lucas Guzman-Finn </div>
         }
 
         return (
@@ -119,6 +119,7 @@ class Leaderboard extends Component {
                 <Paper elevation={2} className={classes.paper} width={1}>
                     <Tabs value={value} onChange={this.handleChange} aria-label="simple tabs example" indicatorColor="primary" variant="fullWidth">
                         <Tab label="All" {...this.a11yProps(0)}/>
+                        <Tab label="Teams" {...this.a11yProps(1)}/>
                     </Tabs>
                     <Fade in={loading} timeout={30} className={loadingStyle}>
                         <LinearProgress color="secondary"/>
@@ -127,6 +128,9 @@ class Leaderboard extends Component {
                         <div>
                             <TabPanel value={value} index={0} className={classes.allTab}>
                                 <TotalView data={tls} isLoading={loading}/>
+                            </TabPanel>
+                            <TabPanel value={value} index={1} className={classes.teamTab}>
+                                <TeamView data={tls} isLoading={loading}/>
                             </TabPanel>
                         </div>
                     </Fade>

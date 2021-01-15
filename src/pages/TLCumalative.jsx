@@ -5,7 +5,7 @@ import TLLeaderboard from '../components/TLLeaderboard'
 export default function TLCumalative(){
     return (
         <div>
-          <Header name="Team Leaders Cumalative"/>
+          <Header name="Cumalative (TLs)"/>
           <TLLeaderboard/>
         </div>
     );

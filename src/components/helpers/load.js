@@ -16,6 +16,10 @@ export default function load(sheetName, nameRange, pointsRange, callback) {
         response => {
           let names = response.result.valueRanges[0].values;
           let points = response.result.valueRanges[1].values;
+          if (names || points) {
+            callback(false, "names/points are undefined, make sure the specified rows are correct");
+            return;
+          }
           let objArr = [];
           for (let i = 0; i < names[0].length; i++) {
             objArr.push({name: names[0][i], points: parseInt(points[0][i])});

@@ -5,7 +5,7 @@ import Leaderboard from '../components/Leaderboard'
 export default function Cumalative(){
     return (
         <div>
-          <Header name="Cumalative"/>
+          <Header name="Cumalative (interns)"/>
           <Leaderboard/>
         </div>
     );
