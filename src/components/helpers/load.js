@@ -16,7 +16,9 @@ export default function load(sheetName, nameRange, pointsRange, callback) {
         response => {
           let names = response.result.valueRanges[0].values;
           let points = response.result.valueRanges[1].values;
-          if (names || points) {
+          console.log("names", names);
+          console.log("points", points);
+          if (typeof names === "undefined" || typeof points === "undefined") {
             callback(false, "names/points are undefined, make sure the specified rows are correct");
             return;
           }

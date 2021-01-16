@@ -40,7 +40,6 @@ const useStyles = theme => ({
         whiteSpace: 'nowrap',
         color: 'white',
         background: '#ffc107',
-        boxShadow: '0 0 5px 2px #ffc107',
     },
     name: {
       flexGrow: 1,
@@ -72,11 +71,12 @@ class TeamView extends Component {
     Bar(props) {
         const { name, points, classes, max, teamMax } = props;
         
-        let width = points / max;
+        let width = points / teamMax;
         
-        if (window.location.pathname === "/e1t1-leaderboard/current-week" || window.location.pathname === "/e1t1-leaderboard/tl-current-week") {
-            width = (points > 1000) ? 1 : (points < 100) ? 0.09 : points / 1000;
+        if ((window.location.pathname === "/e1t1-leaderboard/current-week" || window.location.pathname === "/e1t1-leaderboard/tl-current-week") && points < 100) {
+            width = 0.09;
         }
+
         let style = classes.barPaper;
         if (points >= 1000 && window.location.pathname === "/e1t1-leaderboard/current-week") {
             style = classes.barPaperComplete;

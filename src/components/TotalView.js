@@ -54,8 +54,8 @@ class TotalView extends Component {
         
         let width = points / max;
         
-        if (window.location.pathname === "/e1t1-leaderboard/current-week" || window.location.pathname === "/e1t1-leaderboard/tl-current-week") {
-            width = (points > 1000) ? 1 : (points < 100) ? 0.09 : points / 1000;
+        if ((window.location.pathname === "/e1t1-leaderboard/current-week" || window.location.pathname === "/e1t1-leaderboard/tl-current-week") && points < 100) {
+            width = 0.09;
         }
         
         let style = classes.barPaper;
