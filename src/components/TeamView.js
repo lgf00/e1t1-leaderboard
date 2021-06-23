@@ -100,15 +100,23 @@ class TeamView extends Component {
 
         let interns = [...data];
         let maxPoints = 1;
-        let team1 = interns.slice(0, 10).sort(this.comparePoints);
-        let team2 = interns.slice(10, 20).sort(this.comparePoints);
+        let team1 = interns.slice(0, 9).sort(this.comparePoints);
+        let team2 = interns.slice(9, 21).sort(this.comparePoints);
+        let team3 = interns.slice(21, 35).sort(this.comparePoints);
+        let team4 = interns.slice(35, 43).sort(this.comparePoints);
         let team1Max = team1.sort(this.comparePoints)[0].points;
         let team2Max = team2.sort(this.comparePoints)[0].points;
+        let team3Max = team3.sort(this.comparePoints)[0].points;
+        let team4Max = team4.sort(this.comparePoints)[0].points;
         if (window.location.pathname === "/e1t1-leaderboard/tl-current-week") {
-            team1 = interns.slice(0, 7).sort(this.comparePoints);
-            team2 = interns.slice(7, 14).sort(this.comparePoints);
+            team1 = interns.slice(0, 9).sort(this.comparePoints);
+            team2 = interns.slice(9, 21).sort(this.comparePoints);
+            team3 = interns.slice(21, 35).sort(this.comparePoints);
+            team4 = interns.slice(35, 43).sort(this.comparePoints);
             team1Max = team1.sort(this.comparePoints)[0].points;
             team2Max = team2.sort(this.comparePoints)[0].points;
+            team3Max = team3.sort(this.comparePoints)[0].points;
+            team4Max = team4.sort(this.comparePoints)[0].points;
         }
 
         if (!isLoading) {
@@ -124,6 +132,14 @@ class TeamView extends Component {
                 <Typography variant='h6' className={classes.teamNames}> Team 2 </Typography>
                 {team2.map((intern, key) => (
                     <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team2Max}/>
+                ))}
+                <Typography variant='h6' className={classes.teamNames}> Team 3 </Typography>
+                {team3.map((intern, key) => (
+                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team3Max}/>
+                ))}
+                <Typography variant='h6' className={classes.teamNames}> Team 4 </Typography>
+                {team4.map((intern, key) => (
+                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team3Max}/>
                 ))}
             </div>
         );
