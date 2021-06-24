@@ -69,7 +69,7 @@ class TeamView extends Component {
     }
 
     Bar(props) {
-        const { name, points, classes, max, teamMax } = props;
+        const { name, points, classes, teamMax } = props;
         
         let width = points / teamMax;
         
@@ -139,7 +139,7 @@ class TeamView extends Component {
                 ))}
                 <Typography variant='h6' className={classes.teamNames}> Team 4 </Typography>
                 {team4.map((intern, key) => (
-                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team3Max}/>
+                    <this.Bar key={key} name={intern.name} points={intern.points} classes={classes} max={maxPoints} teamMax={team4Max}/>
                 ))}
             </div>
         );
