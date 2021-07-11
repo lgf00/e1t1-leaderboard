@@ -100,19 +100,19 @@ class TeamView extends Component {
 
         let interns = [...data];
         let maxPoints = 1;
-        let team1 = interns.slice(0, 9).sort(this.comparePoints);
-        let team2 = interns.slice(9, 21).sort(this.comparePoints);
-        let team3 = interns.slice(21, 35).sort(this.comparePoints);
-        let team4 = interns.slice(35, 43).sort(this.comparePoints);
+        let team1 = interns.slice(0, 10).sort(this.comparePoints);
+        let team2 = interns.slice(10, 27).sort(this.comparePoints);
+        let team3 = interns.slice(27, 45).sort(this.comparePoints);
+        let team4 = interns.slice(45, 64).sort(this.comparePoints);
         let team1Max = team1.sort(this.comparePoints)[0].points;
         let team2Max = team2.sort(this.comparePoints)[0].points;
         let team3Max = team3.sort(this.comparePoints)[0].points;
         let team4Max = team4.sort(this.comparePoints)[0].points;
         if (window.location.pathname === "/e1t1-leaderboard/tl-current-week") {
-            team1 = interns.slice(0, 9).sort(this.comparePoints);
-            team2 = interns.slice(9, 21).sort(this.comparePoints);
-            team3 = interns.slice(21, 35).sort(this.comparePoints);
-            team4 = interns.slice(35, 43).sort(this.comparePoints);
+            team1 = interns.slice(0, 10).sort(this.comparePoints);
+            team2 = interns.slice(10, 27).sort(this.comparePoints);
+            team3 = interns.slice(27, 45).sort(this.comparePoints);
+            team4 = interns.slice(45, 64).sort(this.comparePoints);
             team1Max = team1.sort(this.comparePoints)[0].points;
             team2Max = team2.sort(this.comparePoints)[0].points;
             team3Max = team3.sort(this.comparePoints)[0].points;
