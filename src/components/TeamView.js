@@ -103,7 +103,7 @@ class TeamView extends Component {
         let team1 = interns.slice(0, 10).sort(this.comparePoints);
         let team2 = interns.slice(10, 27).sort(this.comparePoints);
         let team3 = interns.slice(27, 45).sort(this.comparePoints);
-        let team4 = interns.slice(45, 64).sort(this.comparePoints);
+        let team4 = interns.slice(45, 67).sort(this.comparePoints);
         let team1Max = team1.sort(this.comparePoints)[0].points;
         let team2Max = team2.sort(this.comparePoints)[0].points;
         let team3Max = team3.sort(this.comparePoints)[0].points;
